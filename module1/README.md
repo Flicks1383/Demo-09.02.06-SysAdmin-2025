@@ -1,7 +1,7 @@
-# >Настройка имени устройств<
+# > Настройка имени устройств <
 - Для Linux используется команда `hostnamectl set-hostname (имя устройства.au-team.irpo)`  
 - Для EcoRouter используется команда `hostname (имя устройства)`
-# >Настройка адресации на устройствах<
+# > Настройка адресации на устройствах <
 ## Для корректной работы интернета на ISP требуется:
 - Создать папку по пути `/etc/net/ifaces/enp6s18`  
 - Далее требуется создать файлы: `options`, `ipv4address`  
@@ -70,3 +70,32 @@ iptables-save > /etc/sysconfig/iptables
 systemctl restart iptables  
 ```
 Для проверки можно использовать команду `iptables –L –t nat`
+# > Создание локальных учетных записей <
+## Создание учёток на Linux ___кроме ISP___:
+```
+useradd sshuser -u 1010
+passwd P@ssw0rd
+usermod -aG wheel sshuser
+sshuser ALL=(ALL) NOPASSWD:ALL
+```
+## Создание учёток на EcoRouter:
+```
+username net_admin
+password P@ssw0rd
+role admin
+```
+# > Настройка безопасного удаленного доступа на серверах HQ-SRV и BR-SRV <
+## Для настройки SSH необходимо его установить коммандой `apt-get install ssh-server`
+После чего необходимо добавить строчки в файл `/etc/openssh/sshd_config`
+```
+Port 2024
+MaxAuthTries 2
+PasswordAuthentication yes
+Banner /etc/openssh/bannermotd
+AllowUsers  sshuser
+```
+После чего требуется создать файл /etc/openssh/bannermotd
+```
+Authorized access only
+```
+Далее необходимо перезапустить SSH коммандой `systemctl restart sshd`
