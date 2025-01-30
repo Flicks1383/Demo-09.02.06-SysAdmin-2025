@@ -93,6 +93,7 @@ MaxAuthTries 2
 PasswordAuthentication yes
 Banner /etc/openssh/bannermotd
 AllowUsers  sshuser
+_          ^ - это TAB_
 ```
 После чего требуется создать файл /etc/openssh/bannermotd
 ```
