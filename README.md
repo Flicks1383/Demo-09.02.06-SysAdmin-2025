@@ -14,6 +14,9 @@
 ### Модули и их решения: 
 
 + **[МОДУЛЬ 1](https://github.com/Flicks1383/Demo09.02.06_2025/tree/main/module1)**
+<details>
+  <summary>Содержание</summary>
+
 
 + **[МОДУЛЬ 2](https://github.com/Flicks1383/Demo09.02.06_2025/tree/main/module2)**
 
