@@ -1,5 +1,10 @@
 # ⚙️Модуль 1
 
+<p align="center">
+  <img src="https://github.com/Flicks1383/Demo09.02.06_2025/blob/main/module1/Диаграмма%20без%20названия.jpg" alt="Топология" />
+</p>
+<p align="center"><strong>Топология</strong></p>
+
 ## Задание 1
 ### Произведите базовую настройку устройств
 
