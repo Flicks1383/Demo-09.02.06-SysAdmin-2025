@@ -22,7 +22,7 @@ TYPE=eth
 BOOTPROTO=static
 CONFIG_IPV4=yes
 ```
-- После чего привести файл `options` к следующему виду:
+- После чего привести файл `ipv4address` к следующему виду:
 ```
 172.16.4.1/28
 ```
@@ -36,7 +36,18 @@ TYPE=eth
 BOOTPROTO=static
 CONFIG_IPV4=yes
 ```
-- После чего привести файл `options` к следующему виду:
+- После чего привести файл `ipv4address` к следующему виду:
 ```
 172.16.5.1/28
+```
+## Настрйока адресации на HQ-RTR производится следующим образом:  
+```
+interface ISP  
+  ip address 172.16.4.2/28  
+
+port te0
+  service-instance toISP
+  encapsulation untagged
+  connect ip interface ISP
+wr mem
 ```
