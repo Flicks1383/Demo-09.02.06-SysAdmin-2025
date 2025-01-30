@@ -284,3 +284,31 @@ interface tunnel.0
   ip tunnel 172.16.4.2 172.16.5.2 mode gre
 ```
 - На BR-RTR настройка похожа, но меняется IP адрес туннеля, и меняются IP адреса строкой ниже
+# > Настройка динамической маршрутизации <
+## Настройка для HQ-RTR:
+```
+router ospf 1
+  router-id 1.1.1.1
+  network 172.16.0.0/30 area 0
+  network 172.16.4.0/28 area 0
+  network 192.168.100.0/26 area 1
+  network 192.168.200.0/28 area 2
+  passive-interface default
+  no passive-interface tunnel.0
+```
+Настройка для BR-RTR идентичная, изеняется только `router-id`, `area 3`
+# Настройка динамичесткой трансляции адресов
+## На ISP эта настройка была проведена ранее.  
+Настройка на роутерах выглядит следующим образом:
+```
+int te1
+  ip nat inside
+int te2
+  ip nat inside
+int te0
+  ip nat outside
+ip nat pool NAT_POOL 192.168.100.1-192.168.100.62,192.168.200.1-192.168.200.14
+ip nat source dynamic inside-to-outside pool NAT_POOL overload interface te0
+```
+Настройка для BR-RTR идентична, описанной выше, за исключением пула и портов  
+# 
