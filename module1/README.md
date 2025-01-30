@@ -338,7 +338,7 @@ allow-query { 127.0.0.1; 192.168.100.0/26; 192.168.200.0/28; 192.168.0.0/27; };
 allow-query-cache { 127.0.0.1; 192.168.100.0/26; 192.168.200.0/28; 192.168.0.0/27; };
 allow-recursion { 127.0.0.1; 192.168.100.0/26; 192.168.200.0/28; 192.168.0.0/27; };
 ```  
-`rndc-confgen > /etc/rndckey`  
+Конфигурация ключей rndc: `rndc-confgen > /etc/rndckey`  
 После чего требуется привести файл `/etc/bind/rndc.key` к следующему виду:
 ```
 //key "rndc-key" {
@@ -351,3 +351,24 @@ key "rndc-key" {
 ```
 После чего, для проверки, можно использовать комманду `named-checkconf`
 Далее необходимо запустить утилиту коммандой `systemctl enable --now bind`
+Далее требуется изменить конфигурацию файла `resolv.conf`
+```
+search au-team.irpo
+nameserver 127.0.0.1
+nameserver 192.168.100.62
+nameserver 77.88.8.8
+search yandex.ru
+```
+После чего требуется прописать в `/etc/bind/local/conf`:
+```
+zone "au-team.irpo" {
+  type master;
+  file "au-team.irpo.db";
+};
+```
+Командой `cp /etc/bind/zone/localdomain /etc/bind/zone/au-team.irpo.db` создается копия файла  
+Которому присваиваются права: 
+```
+chown named. /etc/bind/zone/au-team.irpo.db
+chmod 600 /etc/bind/zone/au-team.irpo.db
+```
