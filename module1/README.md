@@ -93,10 +93,18 @@ MaxAuthTries 2
 PasswordAuthentication yes
 Banner /etc/openssh/bannermotd
 AllowUsers  sshuser
-           ^ ___- это TAB___
+           ^ - это TAB
 ```
 После чего требуется создать файл /etc/openssh/bannermotd
 ```
 Authorized access only
 ```
 Далее необходимо перезапустить SSH коммандой `systemctl restart sshd`
+# Конфигурация GRE туннеля  
+## Настройка производится на HQ-RTR и BR-RTR
+```
+interface tunnel.0
+  ip address 172.16.0.1/30
+  ip tunnel 172.16.4.2 172.16.5.2 mode gre
+```
+- На BR-RTR настройка похожа, но меняется IP адрес туннеля, и меняются IP адреса строкой ниже
