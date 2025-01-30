@@ -46,25 +46,23 @@
 <details>
   <summary><ins>Содержание</ins></summary>
 
-1. **[Настройте доменный контроллер Samba на машине BR-SRV](https://github.com/Flicks1383/Demo09.02.06_2025/tree/main/module2#настройте-доменный-контроллер-samba-на-машине-br-srv)**
+1. **[Настройте доменный контроллер _SAMBA_ на машине _BR-SRV_](https://github.com/Flicks1383/Demo09.02.06_2025/tree/main/module2#настройте-доменный-контроллер-samba-на-машине-br-srv)**
     
-2. **[Сконфигурируйте файловое хранилище](https://github.com/Flicks1383/Demo09.02.06_2025/tree/main/module2#сконфигурируйте-файловое-хранилище)**
+2. **[Сконфигурируйте _ФАЙЛОВОЕ ХРАНИЛИЩЕ_](https://github.com/Flicks1383/Demo09.02.06_2025/tree/main/module2#сконфигурируйте-файловое-хранилище)**
 
-3. **[Настройте службу сетевого времени на базе сервиса chrony](https://github.com/Flicks1383/Demo09.02.06_2025/tree/main/module2#настройте-службу-сетевого-времени-на-базе-сервиса-chrony)**
+3. **[Настройте службу сетевого времени на базе сервиса _CHRONY_](https://github.com/Flicks1383/Demo09.02.06_2025/tree/main/module2#настройте-службу-сетевого-времени-на-базе-сервиса-chrony)**
 
-4. **[Сконфигурируйте ansible на сервере BR-SRV](https://github.com/Flicks1383/Demo09.02.06_2025/tree/main/module2#сконфигурируйте-ansible-на-сервере-br-srv)**
+4. **[Сконфигурируйте _ANSIBLE_ на сервере BR-SRV](https://github.com/Flicks1383/Demo09.02.06_2025/tree/main/module2#сконфигурируйте-ansible-на-сервере-br-srv)**
     
-5. **[Развертывание приложений в Docker на сервере BR-SRV](https://github.com/Flicks1383/Demo09.02.06_2025/tree/main/module2#развертывание-приложений-в-docker-на-сервере-br-srv)**
+5. **[Развертывание приложений в _DOCKER_ на сервере BR-SRV](https://github.com/Flicks1383/Demo09.02.06_2025/tree/main/module2#развертывание-приложений-в-docker-на-сервере-br-srv)**
     
-6. **[На маршрутизаторах сконфигурируйте статическую трансляцию портов](https://github.com/Flicks1383/Demo09.02.06_2025/blob/main/module2/README.md#на-маршрутизаторах-сконфигурируйте-статическую-трансляцию-портов)**
+6. **[На маршрутизаторах сконфигурируйте _СТАТИЧЕСКУЮ ТРАНСЛЯЦИЮ ПОРТОВ_](https://github.com/Flicks1383/Demo09.02.06_2025/blob/main/module2/README.md#на-маршрутизаторах-сконфигурируйте-статическую-трансляцию-портов)**
 
-7. **[На маршрутизаторах сконфигурируйте статическую трансляцию портов](https://github.com/Flicks1383/Demo09.02.06_2025/blob/main/module2/README.md#на-маршрутизаторах-сконфигурируйте-статическую-трансляцию-портов)**
+7. **[Запустите сервис _MOODLE_ на сервере _HQ-SRV_:](https://github.com/Flicks1383/Demo09.02.06_2025/blob/main/module2/README.md#запустите-сервис-moodle-на-сервере-hq-srv)**
 
-8. **[Запустите сервис moodle на сервере HQ-SRV:](https://github.com/Flicks1383/Demo09.02.06_2025/blob/main/module2/README.md#запустите-сервис-moodle-на-сервере-hq-srv)**
+8. **[Настройте веб-сервер _NGINX_ как обратный _ПРОКСИ-СЕРВЕР_ на _HQ-RTR_](https://github.com/Flicks1383/Demo09.02.06_2025/blob/main/module2/README.md#настройте-веб-сервер-nginx-как-обратный-прокси-сервер-на-hq-rtr)**
 
-9. **[Настройте веб-сервер nginx как обратный прокси-сервер на HQ-RTR](https://github.com/Flicks1383/Demo09.02.06_2025/blob/main/module2/README.md#настройте-веб-сервер-nginx-как-обратный-прокси-сервер-на-hq-rtr)**
-
-10. **[Удобным способом установите приложение Яндекс Браузере для организаций на HQ-CLI](https://github.com/Flicks1383/Demo09.02.06_2025/blob/main/module2/README.md#удобным-способом-установите-приложение-яндекс-браузере-для-организаций-на-hq-cli)**
+9. **[Удобным способом установите приложение _Яндекс Браузере_ для организаций на _HQ-CLI_](https://github.com/Flicks1383/Demo09.02.06_2025/blob/main/module2/README.md#удобным-способом-установите-приложение-яндекс-браузере-для-организаций-на-hq-cli)**
   </details>
 
 #
