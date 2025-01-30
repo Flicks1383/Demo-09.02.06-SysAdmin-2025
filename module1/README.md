@@ -311,4 +311,43 @@ ip nat pool NAT_POOL 192.168.100.1-192.168.100.62,192.168.200.1-192.168.200.14
 ip nat source dynamic inside-to-outside pool NAT_POOL overload interface te0
 ```
 Настройка для BR-RTR идентична, описанной выше, за исключением пула и портов  
-# 
+# Настройка динамической конфигурации хостов
+## В качестве DHCP сервера выступает HQ-RTR. 
+### Настройка для него выглядит следующим образом
+```
+apt-get install dhcp-server
+ip pool cli_pool 192.168.200.14-192.168.200.14
+dhcp-server 1
+  pool pool1
+  mask 255.255.255.240
+  gateway 172.16.4.2
+  dns 192.168.100.62
+  domain-name au-team.irpo
+interface te2 (возможно)
+  dhcp-server 1
+```
+# Настройка DNS
+## Основной DNS-сервер реализован на HQ-SRV
+### Для работы с DNS требуется установить "bind" командой `apt-get install bind9`  
+Далее необходимо сконфигурировать файл `/etc/bind/options.conf` таким образом:
+```
+listen-on { 127.0.0.1; 192.168.100.0/26; 192.168.200.0/28; 192.168.0.0/27; };
+forwarders { 77.88.8.8; };
+recursion yes;
+allow-query { 127.0.0.1; 192.168.100.0/26; 192.168.200.0/28; 192.168.0.0/27; };
+allow-query-cache { 127.0.0.1; 192.168.100.0/26; 192.168.200.0/28; 192.168.0.0/27; };
+allow-recursion { 127.0.0.1; 192.168.100.0/26; 192.168.200.0/28; 192.168.0.0/27; };
+```  
+`rndc-confgen > /etc/rndckey`
+После чего требуется привести файл `/etc/bind/rndc.key` к следующему виду:
+```
+//key "rndc-key" {
+//  secret "@RNDC_KEY@";
+//};
+key "rndc-key" {
+  algorithm hmac-sha256;
+  secret "VTmhjyXFDo0QpaBl3UQWx1e0g9HElS2MiFDtNQzDylo=";
+};
+```
+После чего, для проверки, можно использовать комманду `named-checkconf`
+Далее необходимо запустить утилиту коммандой `systemctl enable --now bind`
