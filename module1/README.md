@@ -1,4 +1,5 @@
 # ⚙️Модуль 1
+
 ## Задание 1
 ### Произведите базовую настройку устройств
 
@@ -12,16 +13,153 @@
 - Сведения об адресах занесите в отчёт, в качестве примера используйте Таблицу 3
 <br/>
 <details>
-<summary>Решение</summary>
+<summary><strong>---Решение---</strong></summary>
 <br/>
 
-  <a name="настройте-имена-устройств-согласно-топологии-используйте-полное-доменное-имя"></a>
   ## Настройте имена устройств согласно топологии. Используйте полное доменное имя
    ## > Настройка имени устройств <
   - Для Linux используется команда `hostnamectl set-hostname (имя устройства.au-team.irpo)`  
   - Для EcoRouter используется команда `hostname (имя устройства)`
 #
+
+<table align="center">
+  <tr>
+    <td align="center"><strong>Сеть</strong></td>
+    <td align="center"><strong>Адрес подсети</strong></td>
+    <td align="center"><strong>Пул-адресов</strong></td>
+  </tr>
+  <tr>
+    <td align="center">SRV-Net (VLAN 100)</td>
+    <td align="center">192.168.100.0/26</td>
+    <td align="center">192.168.100.1 - 62</td>
+  </tr>
+  <tr>
+    <td align="center">CLI-Net (VLAN 200)</td>
+    <td align="center">192.168.200.0/28</td>
+    <td align="center">192.168.200.1 - 14</td>
+  </tr>
+  <tr>
+    <td align="center">BR-Net</td>
+    <td align="center">192.168.0.0/27</td>
+    <td align="center">192.168.0.1 - 30</td>
+  </tr>
+  <tr>
+    <td align="center">MGMT (VLAN 999)</td>
+    <td align="center">192.168.99.0/29</td>
+    <td align="center">192.168.99.1 - 6</td>
+  </tr>
+  <tr>
+    <td align="center">ISP-HQ</td>
+    <td align="center">172.16.4.0/28</td>
+    <td align="center">172.16.4.1 - 14</td>
+  </tr>
+  <tr>
+    <td align="center">ISP-BR</td>
+    <td align="center">172.16.5.0/28</td>
+    <td align="center">172.16.5.1 - 14</td>
+  </tr>
+</table>
+<p align="center"><strong>Таблица подсетей</strong></p>
+
+<br/>
+
+<table align="center">
+  <tr>
+    <td align="center"><strong>Устройство</strong></td>
+    <td align="center"><strong>Интерфейс</strong></td>
+    <td align="center"><strong>IPv4/IPv6</strong></td>
+    <td align="center"><strong>Маска/Префикс</strong></td>
+    <td align="center"><strong>Шлюз</strong></td>
+    <td align="center"><strong>Сеть</strong></td>
+  </tr>
+  <tr>
+    <td align="center" rowspan="3">ISP</td>
+    <td align="center">enp6s18</td>
+    <td align="center">192.168.###.### (DHCP)</td>
+    <td align="center">/##</td>
+    <td align="center">192.168.###.###</td>
+    <td align="center">INTERNET</td>
+  </tr>
+  <tr>
+    <td align="center">enp6s19</td>
+    <td align="center">172.16.4.1</td>
+    <td align="center">/28</td>
+    <td align="center"></td>
+    <td align="center">ISP-HQRTR</td>
+  </tr>
+  <tr>
+    <td align="center">enp6s20</td>
+    <td align="center">172.16.5.1</td>
+    <td align="center">/28</td>
+    <td align="center"></td>
+    <td align="center">ISP-BRRTR</td>
+  </tr>
+  <tr>
+    <td align="center" rowspan="3">HQ-RTR</td>
+    <td align="center">te0/int0</td>
+    <td align="center">172.16.4.2</td>
+    <td align="center">/28</td>
+    <td align="center">172.16.4.1</td>
+    <td align="center">ISP-HQRTR</td>
+  </tr>
+  <tr>
+    <td align="center">vlan100/int1</td>
+    <td align="center">192.168.100.1</td>
+    <td align="center">/26</td>
+    <td align="center"></td>
+    <td align="center">HQRTR-CLI</td>
+  </tr>
+  <tr>
+    <td align="center">vlan200/int2</td>
+    <td align="center">192.168.200.1</td>
+    <td align="center">/28</td>
+    <td align="center"></td>
+    <td align="center">HQRTR-SRV</td>
+  </tr>
+  <tr>
+    <td align="center" rowspan="2">BR-RTR</td>
+    <td align="center">te0/int0</td>
+    <td align="center">172.16.5.2</td>
+    <td align="center">/28</td>
+    <td align="center">172.16.5.1</td>
+    <td align="center">ISP-BRRTR</td>
+  </tr>
+  <tr>
+    <td align="center">te1/int1</td>
+    <td align="center">192.168.0.1</td>
+    <td align="center">/27</td>
+    <td align="center"></td>
+    <td align="center">BRRTR-SRV</td>
+  </tr>
+  <tr>
+    <td align="center">HQ-SRV</td>
+    <td align="center">enp6s##</td>
+    <td align="center">192.168.100.62</td>
+    <td align="center">/26</td>
+    <td align="center">192.168.100.1</td>
+    <td align="center">HQRTR-SRV</td>
+  </tr>
+  <tr>
+    <td align="center">BR-SRV</td>
+    <td align="center">enp6s##</td>
+    <td align="center">192.168.0.30</td>
+    <td align="center">/27</td>
+    <td align="center">192.168.0.1</td>
+    <td align="center">HQRTR-SRV</td>
+  </tr>
+  <tr>
+    <td align="center">HQ-CLI</td>
+    <td align="center">enp6s##</td>
+    <td align="center">192.168.200.14</td>
+    <td align="center">/28</td>
+    <td align="center">192.168.200.1</td>
+    <td align="center">HQRTR-CLI</td>
+  </tr>
+</table>
+<p align="center"><strong>Таблица адресации</strong></p>
+      
 </details>
+
 
 #
 
