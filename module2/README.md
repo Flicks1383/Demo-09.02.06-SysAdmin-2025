@@ -34,7 +34,7 @@ mdadm --detail --scan | awk '/ARRAY/ {print}' >> /etc/mdadm/mdadm.conf
 `/dev/md0  /mnt/raid5  ext4  defaults  0  0`  
 - Далее монтируем образ командой: `mount -a`  
 - Проверить монтирование массива можно командой: `df -h`  
-- ## Настройка NFS:  
+## Настройка NFS:  
 - Устанавливаем утилиты: `apt-get install -y nfs-{server,utils}`
 - Создаем директорию командой: `mkdir /mnt/raid5/nfs`
 - Задаем права директории:  
