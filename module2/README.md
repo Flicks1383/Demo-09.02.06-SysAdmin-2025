@@ -35,20 +35,43 @@ mdadm --detail --scan | awk '/ARRAY/ {print}' >> /etc/mdadm/mdadm.conf
 - Далее монтируем образ командой: `mount -a`  
 - Проверить монтирование массива можно командой: `df -h`  
 ## Настройка NFS:  
-- Устанавливаем утилиты: `apt-get install -y nfs-{server,utils}`
-- Создаем директорию командой: `mkdir /mnt/raid5/nfs`
+- Устанавливаем утилиты:
+```
+apt-get install -y nfs-{server,utils}
+```
+- Создаем директорию командой:
+```
+mkdir /mnt/raid5/nfs
+```
 - Задаем права директории:  
-`chmod 766 /mnt/raid5/nfs`
+```
+chmod 766 /mnt/raid5/nfs
+```
 - В файл `/etc/exports` добавляем строку:  
-`/mnt/raid5/nfs 192.168.200.0/28(rw,no_root_squash)`
-- Экспорт файловой системы: `exportfs -arv`
+```
+/mnt/raid5/nfs 192.168.200.0/28(rw,no_root_squash)
+```
+- Экспорт файловой системы:
+```
+exportfs -arv
+```
 - Запускаем NFS сервер командой:  
-`systemctl enable --now nfs-server`
+```
+systemctl enable --now nfs-server
+```
 ## Далее идет настройка на HQ-CLI
 - Устанавливаем NFS клиент:  
-`apt-get update && apt-get install -y nfs-{utils,clients}`
-- Создаем директорию командой: `mkdir /mnt/nfs`
-- После задаем права: `chmod 777 /mnt/nfs`
+```
+apt-get update && apt-get install -y nfs-{utils,clients}
+```
+- Создаем директорию командой:
+```
+mkdir /mnt/nfs
+```
+- После задаем права:
+```
+chmod 777 /mnt/nfs
+```
 - Добавляем в файл `/etc/fstab` строку:  
 `192.168.100.62:/mnt/raid5/nfs  /mnt/nfs  nfs  defaults  0  0`
 - Далее монтируем ресурс командой: `mount -a`
