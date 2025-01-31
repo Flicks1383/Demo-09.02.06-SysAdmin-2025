@@ -13,25 +13,39 @@
 - Для начала требуется установить утилиту: `apt-get install mdadm`
 - После чего необходимо узнать имена дисков командой: `lsblk`
 - После этого обнуляем суперблоки командой:  
-`mdadm --zero-superblock --force /dev/sd{b,c,d}`
+```
+mdadm --zero-superblock --force /dev/sd{b,c,d}
+```
 - Далее удаляем метаданные командой:  
-`wipefs --all --force /dev/sd{b,c,d}`
+```
+wipefs --all --force /dev/sd{b,c,d}
+```
 - Далее создаем RAID:  
-`mdadm --create /dev/md0 -l 5 -n 3 /dev/sd{b,c,d}`
+```
+mdadm --create /dev/md0 -l 5 -n 3 /dev/sd{b,c,d}
+```
 - Можно ввести команду `lsblk` и увидеть массив
 - После чего создаем файловую систему командой:  
-`mkfs -t ext4 /dev/md0`
+```
+mkfs -t ext4 /dev/md0
+```
 - Создаем директорию:  
-`mkdir /etc/mdadm`
+```
+mkdir /etc/mdadm
+```
 - После заполняем файл информацией:  
 ```
 echo "DEVICE partitions" > /etc/mdadm/mdadm.conf
 mdadm --detail --scan | awk '/ARRAY/ {print}' >> /etc/mdadm/mdadm.conf
 ```
 - Создаем файловую систему для монтирования массива:  
-`mkdir /mnt/raid5`
+```
+mkdir /mnt/raid5
+```
 - После, в файл `/etc/fstab` добавляем строчку:  
-`/dev/md0  /mnt/raid5  ext4  defaults  0  0`  
+```
+/dev/md0  /mnt/raid5  ext4  defaults  0  0
+```  
 - Далее монтируем образ командой: `mount -a`  
 - Проверить монтирование массива можно командой: `df -h`  
 ## Настройка NFS:  
@@ -87,7 +101,10 @@ wr mem
 ```
 # Задание 4
 ## Сконфигурируйте ansible на сервере BR-SRV
-- Для начала устранавливаем "Ansible" командой `dnf install ansible -y`
+- Для начала устранавливаем "Ansible" командой
+```
+dnf install ansible -y
+```
 - В файл `/etc/ansible/hosts.yml` требуется поместить все хосты (пока не знаю каким образом(___разобраться___)):
 - Файл `/etc/ansible/inventory.yml` изменить следующим образом:
 ```
@@ -118,7 +135,55 @@ server - IP адрес устройства
 ansible test -m ping
 ```
 # Задание 5
-- ## Развертывание приложений в Docker на сервере BR-SRV
+## Развертывание приложений в Docker на сервере BR-SRV
+- На BR-SRV открываем файл `/home/student/wiki.yml` и приводим к следующему виду:
+```
+services:
+MediaWiki:
+   container_name: wiki
+   image: mediawiki
+   restart: always
+   ports: 
+     - 80:8080
+   links:
+     - database
+   volumes:
+     - images:/var/www/html/images
+     # - ./LocalSettings.php:/var/www/html/LocalSettings.php
+ database:
+   container_name: mariadb
+   image: mariadb
+   environment:
+     MYSQL_DATABASE: mediawiki
+     MYSQL_USER: wiki
+     MYSQL_PASSWORD: WikiP@ssw0rd
+     MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+   volumes:
+     - dbvolume:/var/lib/mysql
+volumes:
+ dbvolume:
+     external: true
+ images:
+```
+- После чего устанавливаем Docker на сервер командой:
+```
+  apt-get install docker-engine
+```
+-
+```
+docker compose -f wiki.yml up -d
+```
+- После сего поднимаем стек контейнеров командой:
+```
+docker compose -f wiki.yml up -d  
+```
+- Далее необходимо раскоментировать (убрать #) в ранее сконфигурированом файле
+- Далее прописываем команды:
+```
+docker-compose -f wiki.yml stop  
+docker-compose -f wiki.yml up -d  
+```
+- 
 # Задание 6
 - ## На маршрутизаторах сконфигурируйте статическую трансляцию портов
 # Задание 7
