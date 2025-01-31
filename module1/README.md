@@ -484,7 +484,7 @@ chmod 600 /etc/bind/zone/200.168.192.in-addr.arpa
 chown named. /etc/bind/zone/0.168.192.in-addr.arpa
 chmod 600 /etc/bind/zone/0.168.192.in-addr.arpa
 ```
-После изменений файл `` выглядит так:
+- После изменений файл `100.168.192.in-addr.arpa` выглядит так:
 ```
 $TTL    1D
 @       IN      SOA     au-team.irpo. root.au-team.irpo. (
@@ -498,5 +498,35 @@ $TTL    1D
 1       IN      PTR     hq-rtr.au-team.irpo.
 62      IN      PTR     hq-srv.au-team.irpo.
 ```
+- После изменений файл `200.168.192.in-addr.arpa` выглядит так:
+```
+$TTL    1D
+@       IN      SOA     au-team.irpo. root.au-team.irpo. (
+                                2024102200      ; Serial
+                                12H             ; Refresh
+                                1H              ; Retry
+                                1W              ; Expire
+                                1H              ; Ncache
+                        )
+        IN      NS      localhost.
+14      IN      PTR     hq-cli.au-team.irpo.
+```
+- После изменений файл `0.168.192.in-addr.arpa` выглядит так:
+```
+$TTL    1D
+@       IN      SOA     au-team.irpo. root.au-team.irpo. (
+                                2024102200      ; Serial
+                                12H             ; Refresh
+                                1H              ; Retry
+                                1W              ; Expire
+                                1H              ; Ncache
+                        )
+        IN      NS      localhost.
+1       IN      PTR     br-rtr.au-team.irpo.
+30      IN      PTR     br-srv.au-team.irpo.
+```
 Все пробелы выше ^ ставятся TAB'ом
 - После чего можно проверить ошибки командой `named-checkconf -z`
+- А также перезапускаем `bind` командой `systemctl restart bind`
+- Проверить работоспособность можно командой  
+`nslookup **IP-адрес/DNS-имя**`
