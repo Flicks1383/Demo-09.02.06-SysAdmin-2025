@@ -530,5 +530,5 @@ $TTL    1D
 - А также перезапускаем `bind` командой `systemctl restart bind`
 - Проверить работоспособность можно командой `nslookup **IP-адрес/DNS-имя**`
 # > Настройте часовой пояс на всех устройствах <
-## - На Linux настраивается часовой пояс командой `timedatectl set-timezone Asia/Tomsk`  
+- На Linux настраивается часовой пояс командой `timedatectl set-timezone Asia/Tomsk`  
 - На EcoRouter настраивается часовой пояс командой `ntp timezone utc+5`
