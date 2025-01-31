@@ -526,9 +526,24 @@ $TTL    1D
 30      IN      PTR     br-srv.au-team.irpo.
 ```
 Все пробелы выше ^ ставятся TAB'ом
-- После чего можно проверить ошибки командой `named-checkconf -z`
-- А также перезапускаем `bind` командой `systemctl restart bind`
-- Проверить работоспособность можно командой `nslookup **IP-адрес/DNS-имя**`
+- После чего можно проверить ошибки командой
+```
+named-checkconf -z
+```
+- А также перезапускаем `bind` командой
+```
+systemctl restart bind
+```
+- Проверить работоспособность можно командой
+```
+nslookup **IP-адрес/DNS-имя**
+```
 # > Настройте часовой пояс на всех устройствах <
-- На Linux настраивается часовой пояс командой `timedatectl set-timezone Asia/Tomsk`  
-- На EcoRouter настраивается часовой пояс командой `ntp timezone utc+7`
+- На Linux настраивается часовой пояс командой
+```
+timedatectl set-timezone Asia/Tomsk
+```  
+- На EcoRouter настраивается часовой пояс командой
+```
+ntp timezone utc+7
+```
