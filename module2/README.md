@@ -55,9 +55,45 @@ mdadm --detail --scan | awk '/ARRAY/ {print}' >> /etc/mdadm/mdadm.conf
 - После можно проверить монтирование командой: `df -h`
 # Задание 3
 ## Настройте службу сетевого времени на базе сервиса chrony
-- На HQ-RTR нет утилиты chrony и возможность выбора стратума
+- Настройка производится на HQ-RTR
+```
+ntp server 172.16.14.1 5  
+  ntp timezone Asia/Tomsk (возможны изменения)  
+  ntp timezone UTC+7
+wr mem
+```
 # Задание 4
-- ## Сконфигурируйте ansible на сервере BR-SRV
+## Сконфигурируйте ansible на сервере BR-SRV
+- Для начала устранавливаем "Ansible" командой `dnf install ansible -y`
+- В файл `/etc/ansible/hosts.yml` требуется поместить все хосты (пока не знаю каким образом(___разобраться___)):
+- Файл `/etc/ansible/inventory.yml` изменить следующим образом:
+```
+clients:
+  hosts:
+    hq-cli.au-team.irpo:
+servers:
+  hosts:
+    hq-srv.au-team.irpo:
+routers:  
+  hosts:
+    hq-rtr.au-team.irpo:
+    br-rtr.au-team.irpo:  
+```
+-  Генерация ключа осуществляется командой:
+```
+ssh-keygen -C "$(whoami)@$(hostname)-$(date -I)"
+```
+-  Далее требуется распространить ключи на хосты, используя SSH:
+```
+ssh-copy-id root@server  
+```
+где:
+root - имя пользователя устройства;
+server - IP адрес устройства
+-  Проверка производится командой:
+```
+ansible test -m ping
+```
 # Задание 5
 - ## Развертывание приложений в Docker на сервере BR-SRV
 # Задание 6
