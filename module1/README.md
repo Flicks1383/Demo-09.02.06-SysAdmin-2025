@@ -302,7 +302,7 @@ iptables –t nat –A POSTROUTING –s 172.16.5.0/28 –o enp6s18 –j MASQUERA
 iptables-save > /etc/sysconfig/iptables  
 systemctl restart iptables  
 ```
-Для проверки можно использовать команду `iptables –L –t nat`
+- Для проверки можно использовать команду `iptables –L –t nat`
 
 </details>
 
@@ -322,7 +322,7 @@ role admin
 ```
 # > Настройка безопасного удаленного доступа на серверах HQ-SRV и BR-SRV <
 ## Для настройки SSH необходимо его установить коммандой `apt-get install ssh-server`
-После чего необходимо добавить строчки в файл `/etc/openssh/sshd_config`
+- После чего необходимо добавить строчки в файл `/etc/openssh/sshd_config`
 ```
 Port 2024
 MaxAuthTries 2
@@ -331,11 +331,11 @@ Banner /etc/openssh/bannermotd
 AllowUsers  sshuser
            ^ - это TAB
 ```
-После чего требуется создать файл /etc/openssh/bannermotd
+- После чего требуется создать файл /etc/openssh/bannermotd
 ```
 Authorized access only
 ```
-Далее необходимо перезапустить SSH коммандой `systemctl restart sshd`
+- Далее необходимо перезапустить SSH коммандой `systemctl restart sshd`
 # > Конфигурация GRE туннеля <
 ## Настройка производится на HQ-RTR и BR-RTR
 ```
@@ -356,10 +356,10 @@ router ospf 1
   passive-interface default
   no passive-interface tunnel.0
 ```
-Настройка для BR-RTR идентичная, изеняется только `router-id`, `area 3`
+- Настройка для BR-RTR идентичная, изеняется только `router-id`, `area 3`
 # > Настройка динамичесткой трансляции адресов <
 ## На ISP эта настройка была проведена ранее.  
-Настройка на роутерах выглядит следующим образом:
+- Настройка на роутерах выглядит следующим образом:
 ```
 int te1
   ip nat inside
@@ -370,7 +370,7 @@ int te0
 ip nat pool NAT_POOL 192.168.100.1-192.168.100.62,192.168.200.1-192.168.200.14
 ip nat source dynamic inside-to-outside pool NAT_POOL overload interface te0
 ```
-Настройка для BR-RTR идентична, описанной выше, за исключением пула и портов  
+- Настройка для BR-RTR идентична, описанной выше, за исключением пула и портов  
 # > Настройка динамической конфигурации хостов <
 ## В качестве DHCP сервера выступает HQ-RTR. 
 ### Настройка для него выглядит следующим образом
@@ -389,7 +389,7 @@ interface te2 (возможно)
 # > Настройка DNS <
 ## Основной DNS-сервер реализован на HQ-SRV
 ### Для работы с DNS требуется установить "bind" командой `apt-get install bind9`  
-Далее необходимо сконфигурировать файл `/etc/bind/options.conf` таким образом:
+- Далее необходимо сконфигурировать файл `/etc/bind/options.conf` таким образом:
 ```
 listen-on { 127.0.0.1; 192.168.100.0/26; 192.168.200.0/28; 192.168.0.0/27; };
 forwarders { 77.88.8.8; };
@@ -398,8 +398,8 @@ allow-query { 127.0.0.1; 192.168.100.0/26; 192.168.200.0/28; 192.168.0.0/27; };
 allow-query-cache { 127.0.0.1; 192.168.100.0/26; 192.168.200.0/28; 192.168.0.0/27; };
 allow-recursion { 127.0.0.1; 192.168.100.0/26; 192.168.200.0/28; 192.168.0.0/27; };
 ```  
-Конфигурация ключей rndc: `rndc-confgen > /etc/rndckey`  
-После чего требуется привести файл `/etc/bind/rndc.key` к следующему виду:
+- Конфигурация ключей rndc: `rndc-confgen > /etc/rndckey`  
+- После чего требуется привести файл `/etc/bind/rndc.key` к следующему виду:
 ```
 //key "rndc-key" {
 //  secret "@RNDC_KEY@";
@@ -409,9 +409,9 @@ key "rndc-key" {
   secret "VTmhjyXFDo0QpaBl3UQWx1e0g9HElS2MiFDtNQzDylo=";
 };
 ```
-После чего, для проверки, можно использовать комманду `named-checkconf`
-Далее необходимо запустить утилиту коммандой `systemctl enable --now bind`
-Далее требуется изменить конфигурацию файла `resolv.conf`
+- После чего, для проверки, можно использовать комманду `named-checkconf`
+- Далее необходимо запустить утилиту коммандой `systemctl enable --now bind`
+- Далее требуется изменить конфигурацию файла `resolv.conf`
 ```
 search au-team.irpo
 nameserver 127.0.0.1
@@ -419,14 +419,14 @@ nameserver 192.168.100.62
 nameserver 77.88.8.8
 search yandex.ru
 ```
-После чего требуется прописать в `/etc/bind/local/conf`:
+- После чего требуется прописать в `/etc/bind/local/conf`:
 ```
 zone "au-team.irpo" {
   type master;
   file "au-team.irpo.db";
 };
 ```
-Командой `cp /etc/bind/zone/localdomain /etc/bind/zone/au-team.irpo.db` создается копия файла  
+- Командой `cp /etc/bind/zone/localdomain /etc/bind/zone/au-team.irpo.db` создается копия файла  
 Которому присваиваются права: 
 ```
 chown named. /etc/bind/zone/au-team.irpo.db
