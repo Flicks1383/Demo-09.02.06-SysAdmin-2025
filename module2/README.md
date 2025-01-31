@@ -86,8 +86,10 @@ mkdir /mnt/nfs
 ```
 chmod 777 /mnt/nfs
 ```
-- Добавляем в файл `/etc/fstab` строку:  
-`192.168.100.62:/mnt/raid5/nfs  /mnt/nfs  nfs  defaults  0  0`
+- Добавляем в файл `/etc/fstab` строку:
+```
+192.168.100.62:/mnt/raid5/nfs  /mnt/nfs  nfs  defaults  0  0
+```
 - Далее монтируем ресурс командой: `mount -a`
 - После можно проверить монтирование командой: `df -h`
 # Задание 3
@@ -183,7 +185,6 @@ docker compose -f wiki.yml up -d
 docker-compose -f wiki.yml stop  
 docker-compose -f wiki.yml up -d  
 ```
-- 
 # Задание 6
 - ## На маршрутизаторах сконфигурируйте статическую трансляцию портов
 # Задание 7
