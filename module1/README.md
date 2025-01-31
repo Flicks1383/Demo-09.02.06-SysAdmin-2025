@@ -432,3 +432,71 @@ zone "au-team.irpo" {
 chown named. /etc/bind/zone/au-team.irpo.db
 chmod 600 /etc/bind/zone/au-team.irpo.db
 ```
+- После чего приводим файл к следующему виду:
+```
+$TTL    1D
+@       IN      SOA     au-team.irpo. root.au-team.irpo. (
+                                2024102200      ; serial
+                                12H             ; refresh
+                                1H              ; retry
+                                1W              ; expire
+                                1H              ; ncache
+                        )
+        IN      NS      au-team.irpo.
+        IN      A       192.168.100.62
+hq-rtr  IN      A       192.168.100.1
+br-rtr  IN      A       192.168.0.1
+hq-srv  IN      A       192.168.100.62
+hq-cli  IN      A       192.168.200.14
+br-srv  IN      A       192.168.0.30
+moodle  IN      CNAME   hq-rtr
+wiki    IN      CNAME   hq-rtr
+```
+- Далее файл `/etc/bind/local.conf` приводим к следующему виду:
+```
+zone "100.168.192.in-addr.arpa" {
+  type master;
+  file "100.168.192.in-addr.arpa";
+};
+
+zone "200.168.192.in-addr.arpa" {
+  type master;
+  file "200.168.192.in-addr.arpa";
+};
+
+zone "0.168.192.in-addr.arpa" {
+  type master;
+  file "0.168.192.in-addr.arpa";
+};
+```
+- После чего создаем файлы командами
+```
+cp /etc/bind/zone/127.in-addr.arpa /etc/bind/zone/100.168.192.in-addr.arpa
+cp /etc/bind/zone/127.in-addr.arpa /etc/bind/zone/200.168.192.in-addr.arpa
+cp /etc/bind/zone/127.in-addr.arpa /etc/bind/zone/0.168.192.in-addr.arpa
+```
+- После этого задаем права файлам командами:
+```
+chown named. /etc/bind/zone/100.168.192.in-addr.arpa
+chmod 600 /etc/bind/zone/100.168.192.in-addr.arpa
+chown named. /etc/bind/zone/200.168.192.in-addr.arpa
+chmod 600 /etc/bind/zone/200.168.192.in-addr.arpa
+chown named. /etc/bind/zone/0.168.192.in-addr.arpa
+chmod 600 /etc/bind/zone/0.168.192.in-addr.arpa
+```
+После изменений файл `` выглядит так:
+```
+$TTL    1D
+@       IN      SOA     au-team.irpo. root.au-team.irpo. (
+                                2024102200      ; Serial
+                                12H             ; Refresh
+                                1H              ; Retry
+                                1W              ; Expire
+                                1H              ; Ncache
+                        )
+        IN      NS      localhost.
+1       IN      PTR     hq-rtr.au-team.irpo.
+62      IN      PTR     hq-srv.au-team.irpo.
+```
+Все пробелы выше ^ ставятся TAB'ом
+- После чего можно проверить ошибки командой `named-checkconf -z`
