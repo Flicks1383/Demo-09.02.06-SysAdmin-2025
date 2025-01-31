@@ -6,11 +6,53 @@
 <p align="center"><strong>Топология</strong></p>
 
 # Задание 1
-- ## Настройте доменный контроллер Samba на машине BR-SRV
+## Настройте доменный контроллер Samba на машине BR-SRV
 - ___Настрою позже___
 # Задание 2
 - ## Сконфигурируйте файловое хранилище
-- 
+- Для начала требуется установить утилиту `apt-get install mdadm`
+- После чего необходимо узнать имена дисков командой `lsblk`
+- После этого обнуляем суперблоки командой  
+`mdadm --zero-superblock --force /dev/sd{b,c,d}`
+- Далее удаляем метаданные командой  
+`wipefs --all --force /dev/sd{b,c,d}`
+- Далее создаем RAID:  
+`mdadm --create /dev/md0 -l 5 -n 3 /dev/sd{b,c,d}`
+- Можно ввести команду `lsblk` и увидеть массив
+- После чего создаем файловую систему командой  
+`mkfs -t ext4 /dev/md0`
+- Создаем директорию  
+`mkdir /etc/mdadm`
+- После заполняем файл информацией  
+```
+echo "DEVICE partitions" > /etc/mdadm/mdadm.conf
+mdadm --detail --scan | awk '/ARRAY/ {print}' >> /etc/mdadm/mdadm.conf
+```
+- Создаем файловую систему для монтирования массива  
+`mkdir /mnt/raid5`
+- После, в файл `/etc/fstab` добавляем строчку:  
+`/dev/md0  /mnt/raid5  ext4  defaults  0  0`  
+- Далее монтируем образ командой `mount -a`  
+- Проверить монтирование массива можно командой `df -h`  
+- ## Настройка NFS  
+- Устанавливаем утилиты: `apt-get install -y nfs-{server,utils}`
+- Создаем директорию командой `mkdir /mnt/raid5/nfs`
+- Задаем права директории  
+`chmod 766 /mnt/raid5/nfs`
+- В файл `/etc/exports` добавляем строку
+`/mnt/raid5/nfs 192.168.200.0/28(rw,no_root_squash)`
+- Экспорт файловой системы: `exportfs -arv`
+- Запускаем NFS сервер командой  
+`systemctl enable --now nfs-server`
+## Далее идет настройка на HQ-CLI
+- Устанавливаем NFS клиент  
+`apt-get update && apt-get install -y nfs-{utils,clients}`
+- Создаем директорию командой `mkdir /mnt/nfs`
+- После задаем права `chmod 777 /mnt/nfs`
+- Добавляем в файл `/etc/fstab` строку  
+`192.168.100.62:/mnt/raid5/nfs  /mnt/nfs  nfs  defaults  0  0`
+- Далее монтируем ресурс командой: `mount -a`
+- После можно проверить монтирование командой `df -h`
 # Задание 3
 - ## Настройте службу сетевого времени на базе сервиса chrony
 # Задание 4
