@@ -290,10 +290,20 @@ wr mem
 <br/>
 
 
+
+## Настройка маршрута по умолчанию
+
+Прописываем шлюз по умолчанию:
+```yml
+default via *адрес шлюза*
+```
+
+<br/>
+
 #
 
+## Настройка динамической сетевой трансляции на ISP
 
-## Настройка динамической сетевой трансляции на ISP:
 ```
 echo net.ipv4.ip_forward=1 > /etc/sysctl.conf
 apt-get install iptables –y   
@@ -302,24 +312,71 @@ iptables –t nat –A POSTROUTING –s 172.16.5.0/28 –o enp6s18 –j MASQUERA
 iptables-save > /etc/sysconfig/iptables  
 systemctl restart iptables  
 ```
-- Для проверки можно использовать команду `iptables –L –t nat`
+
+>Для проверки можно использовать команду `iptables –L –t nat`
+
+#
 
 </details>
 
+
+## Задание 3
+
+### Создание локальных учетных записей
+
+- Создайте пользователя sshuser на серверах HQ-SRV и BR-SRV
+
+  - Пароль пользователя sshuser с паролем P@ssw0rd
+
+  - Идентификатор пользователя 1010
+
+  - Пользователь sshuser должен иметь возможность запускать sudo без дополнительной аутентификации.
+
+  - Создайте пользователя net_admin на маршрутизаторах HQ-RTR и BR-RTR
+
+  - Пароль пользователя net_admin с паролем P@$$word
+
+  - При настройке на EcoRouter пользователь net_admin должен обладать максимальными привилегиями
+
+  - При настройке ОС на базе Linux, запускать sudo без дополнительной аутентификации
+
+<br/>
+
+<details>
+<summary><strong>Решение</strong></summary>
+<br/>
+
 # > Создание локальных учетных записей <
-## Создание учёток на Linux ___кроме ISP___:
+- ## Создание учёток на Linux ___кроме ISP___:
 ```
 useradd sshuser -u 1010
 passwd P@ssw0rd
+```
+
+Добавляем в группу **wheel**:
+```yml
 usermod -aG wheel sshuser
+```
+
+<br/>
+
+Добавляем строку в **`/etc/sudoers`**:
+```yml
 sshuser ALL=(ALL) NOPASSWD:ALL
 ```
-## Создание учёток на EcoRouter:
+> Позволяет запускать **sudo** без аутентификации 
+
+<br/>
+
+- ## Создание учёток на EcoRouter:
 ```
 username net_admin
 password P@ssw0rd
 role admin
 ```
+
+</details>
+
 # > Настройка безопасного удаленного доступа на серверах HQ-SRV и BR-SRV <
 ## Для настройки SSH необходимо его установить коммандой `apt-get install ssh-server`
 - После чего необходимо добавить строчки в файл `/etc/openssh/sshd_config`
