@@ -1,9 +1,14 @@
-<span style="font-size: 24px;"><div align="center"><strong>⚙️Модуль 1</strong></div></span>
+# <div align="center"><strong>⚙️</strong></div> <div align="center"><strong>МОДУЛЬ 1</strong></div>
+
+<br/>
 
 <p align="center">
   <img src="https://github.com/Flicks1383/Demo09.02.06_2025/blob/main/module1/Диаграмма%20без%20названия.jpg" alt="Топология" />
 </p>
-<p align="center"><strong>Топология</strong></p>
+
+### <p align="center"><strong>Топология</strong></p>
+
+<br/>
 
 ## Задание 1
 ### Произведите базовую настройку устройств
@@ -25,6 +30,7 @@
 <br/>
   
    ## > Настройка имени устройств <
+   
   - Для **Linux** используется команда `hostnamectl set-hostname (имя устройства.au-team.irpo)`
     
   - Для **EcoRouter** используется команда `hostname (имя устройства)`
@@ -42,6 +48,10 @@
 > BR-SRV: `br-srv.au-team.irpo`
 
 #
+
+### <p align="center"><strong>Таблицы адрессации </strong></p>
+
+<br/>
 
 <table align="center">
   <tr>
@@ -82,7 +92,7 @@
 </table>
 <p align="center"><strong>Таблица подсетей</strong></p>
 
-<br/>
+# <br/>
 
 <table align="center">
   <tr>
@@ -179,12 +189,13 @@
 </table>
 <p align="center"><strong>Таблица адресации</strong></p>
 
-#
 
-# Настройка ip-адресации на устройствах
+## > Настройка адрессации <
 
-## ISP - Настройка в сторону провайдера
-- Создать папку по пути `/etc/net/ifaces/enp6s18`
+
+**ISP - Настройка в сторону `провайдера`**
+
+Создать папку по пути `/etc/net/ifaces/enp6s18`
 
   ```
   mkdir /etc/net/ifaces/enp6s18
@@ -196,8 +207,6 @@
   touch /etc/net/ifaces/enp6s18/options
   ```
 
-
-
 - После чего привести файл `options` к следующему виду:
 ```
 DISABLED=no
@@ -205,8 +214,11 @@ TYPE=eth
 BOOTPROTO=dhcp
 CONFIG_IPV4=yes
 ```  
+</br>
 
-## Настройка интерфейса ISP в сторону *HQ-rtr*:
+#
+
+**Настройка интерфейса `ISP` в сторону `HQ-RTR`**
 - Создать папку по пути `/etc/net/ifaces/enp6s19`
   ```
   mkdir /etc/net/ifaces/enp6s19
@@ -228,8 +240,9 @@ CONFIG_IPV4=yes
 ```
 172.16.4.1/28
 ```
+#
 
-## Настройка интерфейса ISP в сторону *BR-rtr*:
+**Настройка интерфейса `ISP` в сторону `BR-RTR`**
 - Создать папку по пути `/etc/net/ifaces/enp6s20`  
 - Далее требуется создать файлы: `options`, `ipv4address`  
 - После чего привести файл `options` к следующему виду:
@@ -244,7 +257,7 @@ CONFIG_IPV4=yes
 172.16.5.1/28
 ```
 
-## Настрйока адресации на HQ-RTR проиcходит в режиме `configure terminal`:  
+**Настройка адресации на `HQ-RTR` проиcходит в режиме `configure terminal`** 
 ```
 interface ISP  
   ip address 172.16.4.2/28  
@@ -254,7 +267,9 @@ port te0
   connect ip interface ISP
 wr mem
 ```
-## Настрйока адресации на BR-RTR происходит в режиме `configure terminal`:  
+#
+
+**Настройка адресации на `BR-RTR` происходит в режиме `configure terminal`** 
 ```
 interface ISP  
   ip address 172.16.5.2/28  
@@ -302,7 +317,7 @@ default via *адрес шлюза*
 
 <br/>
 
-#
+
 
 ## Настройка динамической сетевой трансляции на ISP
 
@@ -502,7 +517,7 @@ interface tunnel.0
 <br/>
 
 <details>
-<summary>Решение</summary>
+<summary><strong>Решение</strong></summary>
 <br/>
 
 # > Настройка динамической маршрутизации <
@@ -522,12 +537,51 @@ router ospf 1
 ```
 - Настройка для **BR-RTR** идентичная, изеняется только **`router-id`**, **`area 3`**
 
-> #### Маршрутизация OSPF на BR-RTR настраивается аналогично примеру выше
+<br/>
+
+> **Маршрутизация `OSPF на BR-RTR` настраивается аналогично примеру выше**
 
 </details>
 
 <br/>
 
+
+## Задание 8
+
+### Настройка динамической трансляции адресов
+
+- Настройте динамическую трансляцию адресов для обоих офисов.
+
+- Все устройства в офисах должны иметь доступ к сети Интернет
+
+<br/>
+
+<details>
+<summary><strong>Решение</strong></summary>
+<br/>
+
+# > Настройка динамичесткой трансляции адресов <
+
+- Настройка на роутерах выглядит следующим образом:
+
+```
+int te1
+  ip nat inside
+int te2
+  ip nat inside
+int te0
+  ip nat outside
+ip nat pool NAT_POOL 192.168.100.1-192.168.100.62,192.168.200.1-192.168.200.14
+ip nat source dynamic inside-to-outside pool NAT_POOL overload interface te0
+```
+- Настройка для BR-RTR идентична, описанной выше, за исключением пула и портов  
+
+</details>
+
+> [!NOTE]
+> Пул адрессов можно посмотреть в таблице <strong>[Задания 1](https://github.com/Flicks1383/Demo09.02.06_2025/tree/main/module1#задание-1)</strong> или же отталкиваться от вашей адрессации.
+
+  
 # > Настройка динамичесткой трансляции адресов <
 ## На ISP эта настройка была проведена ранее.  
 - Настройка на роутерах выглядит следующим образом:
