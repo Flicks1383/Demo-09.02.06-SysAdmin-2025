@@ -26,7 +26,7 @@
 - Сведения об адресах занесите в отчёт, в качестве примера используйте Таблицу 3
 <br/>
 <details>
-<summary><strong>Решение</strong></summary>
+<summary><strong>[Решение]</strong></summary>
 <br/>
   
    ## > Настройка имени устройств <
@@ -262,8 +262,9 @@ CONFIG_IPV4=yes
 
 **Настройка адресации на `HQ-RTR` проиcходит в режиме `configure terminal`** 
 ```
-interface ISP  
-  ip address 172.16.4.2/28  
+interface ISP 
+  ip address 172.16.4.2/28
+!
 port te0
   service-instance toISP
   encapsulation untagged
@@ -306,7 +307,7 @@ wr mem
 <br/>
 
 <details>
-<summary><strong>Решение</strong></summary>
+<summary><strong>[Решение]</strong></summary>
 <br/>
 
 
@@ -364,7 +365,7 @@ systemctl restart iptables
 <br/>
 
 <details>
-<summary><strong>Решение</strong></summary>
+<summary><strong>[Решение]</strong></summary>
 <br/>
 
 - ### Создание учёток на Linux `КРОМЕ ISP`:
@@ -399,7 +400,7 @@ role admin
 
 <br/>
 
-## ❌ Задание 4
+## ❌/✔️ Задание 4
 
 ### Настройте на интерфейсе HQ-RTR в сторону офиса HQ виртуальный коммутатор
 
@@ -411,8 +412,30 @@ role admin
 <br/>
 
 <details>
-<summary>Не решено</summary>
+<summary>[В процессе]</summary>
 <br/>
+
+```
+interface CLI
+  ip address 192.168.100.1/26
+!
+port te1
+  service-instance toCLI
+  encapsulation dot1Q 100
+  rewrite pop 1
+  connect ip interface CLI
+!
+interface SRV
+  ip address 192.168.200.1/28
+!
+port te1
+  service-instance toSRV
+  encapsulation dot1Q 200
+  rewrite pop 1
+  connect ip interface SRV
+wr mem
+```
+
 
 ----------**В процессе**----------
 
@@ -432,7 +455,7 @@ role admin
 <br/>
 
 <details>
-<summary><strong>Решение</strong></summary>
+<summary><strong>[Решение]</strong></summary>
 <br/>
 
 # > Настройка безопасного удаленного доступа на серверах HQ-SRV и BR-SRV <
@@ -480,7 +503,7 @@ Authorized access only
 <br/>
 
 <details>
-<summary><strong>Решение</strong></summary>
+<summary><strong>[Решение]</strong></summary>
 <br/>
 
 
@@ -489,7 +512,7 @@ Authorized access only
 - Настройка производится на **HQ-RTR** и **BR-RTR**
 
 ```
-####настройка производится на hq-rtr####
+####настройка производится на HQ-RTR####
 
 interface tunnel.0
   ip address 172.16.0.1/30
@@ -519,7 +542,7 @@ interface tunnel.0
 <br/>
 
 <details>
-<summary><strong>Решение</strong></summary>
+<summary><strong>[Решение]</strong></summary>
 <br/>
 
 # > Настройка динамической маршрутизации <
@@ -557,7 +580,7 @@ router ospf 1
 <br/>
 
 <details>
-<summary><strong>Решение</strong></summary>
+<summary><strong>[Решение]</strong></summary>
 <br/>
 
 # > Настройка динамичесткой трансляции адресов <
@@ -577,7 +600,7 @@ int te1
 int te2
   ip nat inside
 !
-int te0
+int ISP
   ip nat outside
 !
 ip nat pool NAT_POOL 192.168.100.1-192.168.100.62,192.168.200.1-192.168.200.14
@@ -636,7 +659,7 @@ ip nat source dynamic inside-to-outside pool NAT_POOL overload interface int0
 <br/>
 
 <details>
-<summary><strong>Решение</strong></summary>
+<summary><strong>[Решение]</strong></summary>
 <br/>
 
 # > Настройка динамической конфигурации хостов <
@@ -674,11 +697,9 @@ dhcp-server 1
 
 Привязываем **DHCP-сервер** к интерфейсу (смотрящий в сторону **CLI**):
 ```yml
-interface te2 ///В процессе
+interface CLI
   dhcp-server 1
 ```
-
-</details>
 
 </details>
 
