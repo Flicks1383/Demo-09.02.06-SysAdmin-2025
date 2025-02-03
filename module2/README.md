@@ -1,4 +1,6 @@
-# ⚙️Модуль 2
+### <div align="center">![image](https://github.com/user-attachments/assets/ebf7c74e-ab37-4d5d-964b-d403e03398f3)</div>
+
+# <div align="center"><strong>МОДУЛЬ 2</strong></div>
 
 <p align="center">
   <img src="https://github.com/Flicks1383/Demo09.02.06_2025/blob/main/module1/Диаграмма%20без%20названия.jpg" alt="Топология" />
