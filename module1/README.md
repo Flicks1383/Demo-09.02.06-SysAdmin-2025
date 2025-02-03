@@ -283,6 +283,7 @@ port te0
   connect ip interface ISP
 wr mem
 ```
+</br>
 
 ## <p align="center"><strong>Клиентские машины `HQ-SRV`, `HQ-CLI`, `BR-SRV`</strong></p>
 
@@ -307,8 +308,21 @@ CONFIG_IPV4=yes
 ```
 default via 192.168.100.1
 ```
+</br>
 
 ### <p align="center"><strong>HQ-CLI</strong></p>
+
+>При помощи GUI клиентского alt, в сетевых настройках ставим `dhcp`
+
+Или же приводим файл `options` к следующему виду:
+
+```
+DISABLED=no
+TYPE=eth
+BOOTPROTO=dhcp
+CONFIG_IPV4=yes
+```  
+
 
 </details>
 
