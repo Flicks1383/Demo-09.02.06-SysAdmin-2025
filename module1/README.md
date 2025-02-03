@@ -284,6 +284,32 @@ port te0
 wr mem
 ```
 
+## <p align="center"><strong>Клиентские машины `HQ-SRV`, `HQ-CLI`, `BR-SRV`</strong></p>
+
+### <p align="center"><strong>HQ-SRV</strong></p>
+
+**`/etc/net/ifaces/*имя интерфейса*/options`**
+```yml
+DISABLED=no
+TYPE=eth
+BOOTPROTO=static
+CONFIG_IPV4=yes
+```
+</br>
+
+**`/etc/net/ifaces/*имя интерфейса*/ipv4address`**
+```
+192.168.100.62/26
+```
+</br>
+
+**`/etc/net/ifaces/*имя интерфейса*/ipv4route`**
+```
+default via 192.168.100.1
+```
+
+### <p align="center"><strong>HQ-CLI</strong></p>
+
 </details>
 
 <br/>
@@ -415,6 +441,9 @@ role admin
 <summary>[В процессе]</summary>
 <br/>
 
+### Конфигурация VLAN на HQ-RTR
+
+Создание интерфейсов и привязка с физ.портом на **`HQ-RTR`**
 ```
 interface CLI
   ip address 192.168.200.1/28
@@ -435,6 +464,7 @@ port te1
   connect ip interface SRV
 wr mem
 ```
+>`wr mem` - сохранение конфигурации роутера после изменения настроек
 
 
 ----------**В процессе**----------
