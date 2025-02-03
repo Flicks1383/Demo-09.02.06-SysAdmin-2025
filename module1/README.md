@@ -203,7 +203,7 @@
 - Далее требуется создать файл: `options`
   
   ```
-  touch /etc/net/ifaces/enp6s18/options
+  vi /etc/net/ifaces/enp6s18/options
   ```
 
 - После чего привести файл `options` к следующему виду:
@@ -224,9 +224,9 @@ CONFIG_IPV4=yes
   ```  
 - Далее требуется создать файлы: `options`, `ipv4address`
   ```
-  touch /etc/net/ifaces/enp6s19/options
+  vi /etc/net/ifaces/enp6s19/options
     
-  touch /etc/net/ifaces/enp6s19/ipv4address
+  vi /etc/net/ifaces/enp6s19/ipv4address
   ```  
 - После чего привести файл `options` к следующему виду:
 ```
@@ -367,7 +367,6 @@ systemctl restart iptables
 <summary><strong>Решение</strong></summary>
 <br/>
 
-# > Создание локальных учетных записей <
 - ### Создание учёток на Linux `КРОМЕ ISP`:
 ```
 useradd sshuser -u 1010
