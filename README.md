@@ -13,9 +13,9 @@
 
 ### Модули и их решения: 
 
-+ **[⚙️МОДУЛЬ 1](https://github.com/Flicks1383/Demo09.02.06_2025/tree/main/module1)**
++ **[⚙️МОДУЛЬ 1](https://github.com/Flicks1383/Demo09.02.06_2025/tree/main/module1)** 
 <details>
-  <summary><ins>Содержание</ins></summary>
+  <summary><ins>Содержание</ins></summary> 
   
   1. **[Произведите _базовую настройку_ устройств](https://github.com/Flicks1383/Demo09.02.06_2025/blob/main/module1/README.md#%EF%B8%8F-задание-1)**
   
@@ -40,7 +40,6 @@
   11. **[Настройте _ЧАСОВОЙ ПОЯС_ на всех устройствах, согласно месту проведения экзамена]()**
     
   </details>
-
 
 + **[⚙️МОДУЛЬ 2](https://github.com/Flicks1383/Demo09.02.06_2025/tree/main/module2)**
 <details>
