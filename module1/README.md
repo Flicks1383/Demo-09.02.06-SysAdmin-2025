@@ -1,4 +1,4 @@
-# ⚙️Модуль 1
+<span style="font-size: 24px;"><div align="center"><strong>⚙️Модуль 1</strong></div></span>
 
 <p align="center">
   <img src="https://github.com/Flicks1383/Demo09.02.06_2025/blob/main/module1/Диаграмма%20без%20названия.jpg" alt="Топология" />
