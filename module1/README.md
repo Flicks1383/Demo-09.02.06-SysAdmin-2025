@@ -674,7 +674,7 @@ dhcp-server 1
 
 Привязываем **DHCP-сервер** к интерфейсу (смотрящий в сторону **CLI**):
 ```yml
-interface int2
+interface te2 ///В процессе
   dhcp-server 1
 ```
 
