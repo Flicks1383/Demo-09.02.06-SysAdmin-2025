@@ -17,9 +17,9 @@
 <details>
   <summary><ins>Содержание</ins></summary>
   
-  1. **[Произведите _базовую настройку_ устройств](https://github.com/Flicks1383/Demo09.02.06_2025/blob/main/module1/README.md#произведите-базовую-настройку-устройств)**
+  1. **[Произведите _базовую настройку_ устройств](https://github.com/Flicks1383/Demo09.02.06_2025/blob/main/module1/README.md#%EF%B8%8F-задание-1)**
   
-  2. **[Настройка _ISP_](https://github.com/Flicks1383/Demo09.02.06_2025/blob/main/module1/README.md#настройка-isp)**
+  2. **[Настройка _ISP_](https://github.com/Flicks1383/Demo09.02.06_2025/blob/main/module1/README.md#%EF%B8%8F-задание-2)**
   
   3. **[Создание _ЛОКАЛЬНЫХ_ учетных записей](https://github.com/Flicks1383/Demo09.02.06_2025/blob/main/module1/README.md#%EF%B8%8F-задание-3)**
   
