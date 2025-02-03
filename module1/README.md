@@ -333,7 +333,7 @@ iptables-save > /etc/sysconfig/iptables
 systemctl restart iptables  
 ```
 
->Для проверки можно использовать команду `iptables –L –t nat`
+> Для проверки можно использовать команду: **`iptables –L –t nat`** - должны высветится в Chain POSTROUTING две настроенные подсети
 
 #
 
@@ -368,7 +368,7 @@ systemctl restart iptables
 <br/>
 
 # > Создание локальных учетных записей <
-- ### Создание учёток на Linux ___кроме ISP___:
+- ### Создание учёток на Linux `КРОМЕ ISP`:
 ```
 useradd sshuser -u 1010
 passwd P@ssw0rd
@@ -540,10 +540,6 @@ router ospf 1
 ```
 - Настройка для **BR-RTR** идентичная, изеняется только **`router-id`**, **`area 3`**
 
-<br/>
-
-> **Маршрутизация `OSPF на BR-RTR` настраивается аналогично примеру выше**
-
 </details>
 
 <br/>
@@ -567,37 +563,53 @@ router ospf 1
 
 # > Настройка динамичесткой трансляции адресов <
 
-- Настройка на роутерах выглядит следующим образом:
+<br/>
+
+> ### Настройка на `ISP выполнена` в [Задании 2](https://github.com/Flicks1383/Demo09.02.06_2025/tree/main/module1#%EF%B8%8F-задание-2)
+
+<br/>
+
+- Настройка на **`HQ-RTR`** выглядит следующим образом:
 
 ```
-int te1
+int te1    ///Порт куда пойдет инет от провайдера
   ip nat inside
+!
 int te2
   ip nat inside
-int te0
+!
+int te0    ///Порт от которого приходит инет
   ip nat outside
+!
 ip nat pool NAT_POOL 192.168.100.1-192.168.100.62,192.168.200.1-192.168.200.14
+!
 ip nat source dynamic inside-to-outside pool NAT_POOL overload interface te0
 ```
-- Настройка для BR-RTR идентична, описанной выше, за исключением пула и портов  
+
+</br>
+
+- Настройка на **`BR-RTR`** выглядит следующим образом:
+
+```
+ int int1
+  ip nat inside
+!
+int int0
+  ip nat outside
+!
+ip nat pool NAT_POOL 192.168.0.1-192.168.0.30
+!
+ip nat source dynamic inside-to-outside pool NAT_POOL overload interface int0
+```  
+<br/>
+
+> **`ОБЯЗАТЕЛЬНО`** смотрите на адреса пула и вашей сети, если пул адресов методички отличается от вашей, то делайте на основе вашей адресации сети!!!
+
 
 </details>
 
   
-# > Настройка динамичесткой трансляции адресов <
-## На ISP эта настройка была проведена ранее.  
-- Настройка на роутерах выглядит следующим образом:
-```
-int te1
-  ip nat inside
-int te2
-  ip nat inside
-int te0
-  ip nat outside
-ip nat pool NAT_POOL 192.168.100.1-192.168.100.62,192.168.200.1-192.168.200.14
-ip nat source dynamic inside-to-outside pool NAT_POOL overload interface te0
-```
-- Настройка для BR-RTR идентична, описанной выше, за исключением пула и портов  
+
 # > Настройка динамической конфигурации хостов <
 ## В качестве DHCP сервера выступает HQ-RTR. 
 ### Настройка для него выглядит следующим образом
