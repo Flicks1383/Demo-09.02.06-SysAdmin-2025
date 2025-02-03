@@ -417,20 +417,20 @@ role admin
 
 ```
 interface CLI
-  ip address 192.168.100.1/26
+  ip address 192.168.200.1/28
 !
 port te1
   service-instance toCLI
-  encapsulation dot1Q 100
+  encapsulation dot1Q 200
   rewrite pop 1
   connect ip interface CLI
 !
 interface SRV
-  ip address 192.168.200.1/28
+  ip address 192.168.100.1/26
 !
 port te1
   service-instance toSRV
-  encapsulation dot1Q 200
+  encapsulation dot1Q 100
   rewrite pop 1
   connect ip interface SRV
 wr mem
