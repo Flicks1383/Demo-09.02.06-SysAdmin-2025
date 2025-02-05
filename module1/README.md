@@ -189,6 +189,9 @@
 </table>
 <p align="center"><strong>Таблица адресации</strong></p>
 
+</details>
+
+<br/>
 
 ## > Настройка адрессации <
 
@@ -217,8 +220,6 @@
 <details>
 <summary><strong>[Решение]</strong></summary>
 <br/>
-
-
 
 ## Настройка маршрута по умолчанию
 
