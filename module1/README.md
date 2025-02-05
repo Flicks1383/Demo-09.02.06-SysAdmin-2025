@@ -105,78 +105,78 @@
   </tr>
   <tr>
     <td align="center" rowspan="3">ISP</td>
-    <td align="center">enp6s18</td>
+      <td align="center">ens192</td>
     <td align="center">192.168.###.### (DHCP)</td>
     <td align="center">/##</td>
     <td align="center">192.168.###.###</td>
     <td align="center">INTERNET</td>
   </tr>
   <tr>
-    <td align="center">enp6s19</td>
+    <td align="center">ens161</td>
     <td align="center">172.16.4.1</td>
     <td align="center">/28</td>
     <td align="center"></td>
-    <td align="center">ISP-HQRTR</td>
+    <td align="center">ISP-HQ-RTR</td>
   </tr>
   <tr>
-    <td align="center">enp6s20</td>
+    <td align="center">ens224</td>
     <td align="center">172.16.5.1</td>
     <td align="center">/28</td>
     <td align="center"></td>
-    <td align="center">ISP-BRRTR</td>
+    <td align="center">ISP-BR-RTR</td>
   </tr>
   <tr>
     <td align="center" rowspan="3">HQ-RTR</td>
-    <td align="center">te0/int0</td>
+    <td align="center">ens256</td>
     <td align="center">172.16.4.2</td>
     <td align="center">/28</td>
     <td align="center">172.16.4.1</td>
-    <td align="center">ISP-HQRTR</td>
+    <td align="center">ISP-HQ-RTR</td>
   </tr>
   <tr>
     <td align="center">vlan100/int1</td>
     <td align="center">192.168.100.1</td>
     <td align="center">/26</td>
     <td align="center"></td>
-    <td align="center">HQRTR-CLI</td>
+    <td align="center">HQ-RTR-CLI</td>
   </tr>
   <tr>
-    <td align="center">vlan200/int2</td>
+    <td align="center">vlan200/ens224</td>
     <td align="center">192.168.200.1</td>
     <td align="center">/28</td>
     <td align="center"></td>
-    <td align="center">HQRTR-SRV</td>
+    <td align="center">HQ-RTR-SRV</td>
   </tr>
   <tr>
     <td align="center" rowspan="2">BR-RTR</td>
-    <td align="center">te0/int0</td>
+    <td align="center">ens224</td>
     <td align="center">172.16.5.2</td>
     <td align="center">/28</td>
     <td align="center">172.16.5.1</td>
-    <td align="center">ISP-BRRTR</td>
+    <td align="center">ISP-BR-RTR</td>
   </tr>
   <tr>
-    <td align="center">te1/int1</td>
+    <td align="center">ens256</td>
     <td align="center">192.168.0.1</td>
     <td align="center">/27</td>
     <td align="center"></td>
-    <td align="center">BRRTR-SRV</td>
+    <td align="center">BR-RTR-SRV</td>
   </tr>
   <tr>
     <td align="center">HQ-SRV</td>
-    <td align="center">enp6s##</td>
+    <td align="center">ens224</td>
     <td align="center">192.168.100.62</td>
     <td align="center">/26</td>
     <td align="center">192.168.100.1</td>
-    <td align="center">HQRTR-SRV</td>
+    <td align="center">HQ-RTR-SRV</td>
   </tr>
   <tr>
     <td align="center">BR-SRV</td>
-    <td align="center">enp6s##</td>
+    <td align="center">ens224</td>
     <td align="center">192.168.0.30</td>
     <td align="center">/27</td>
     <td align="center">192.168.0.1</td>
-    <td align="center">HQRTR-SRV</td>
+    <td align="center">BR-RTR-SRV</td>
   </tr>
   <tr>
     <td align="center">HQ-CLI</td>
@@ -184,7 +184,7 @@
     <td align="center">192.168.200.14</td>
     <td align="center">/28</td>
     <td align="center">192.168.200.1</td>
-    <td align="center">HQRTR-CLI</td>
+    <td align="center">HQ-RTR-CLI</td>
   </tr>
 </table>
 <p align="center"><strong>Таблица адресации</strong></p>
