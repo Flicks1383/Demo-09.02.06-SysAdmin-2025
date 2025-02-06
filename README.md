@@ -43,6 +43,8 @@
     
   </details>
 
+</br>
+
 + **[⚙️МОДУЛЬ 2](https://github.com/Flicks1383/Demo09.02.06_2025/tree/main/module2)**
 <details>
   <summary><ins>Содержание</ins></summary>
