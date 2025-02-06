@@ -1,6 +1,6 @@
 # <div align="center"><strong>Демонстрационный экзамен (AltLinux+EcoRouter)</strong></div>
 
-### <div align="center"><strong> Описание</strong> </div>
+### <div align="center"><strong>Описание</strong> </div>
 <div align="center">Инструкция для написания демонстрационного экзамена 2025 года для специальности</div> <div align="center"><strong>СЕТЕВОЕ И СИСТЕМНОЕ АДМИНИСТРИРОВАНИЕ 09.02.06</strong></div>
 </br>
 
@@ -15,7 +15,7 @@
 
 ### Модули и их решения: 
 
-+ **[⚙️МОДУЛЬ 1](https://github.com/Flicks1383/Demo09.02.06_2025/tree/main/module1)** 
++ **[⚙️МОДУЛЬ 1]()** 
 <details>
   <summary><ins>Содержание</ins></summary> 
   
